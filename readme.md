@@ -34,6 +34,14 @@ Dans le package.json
 Et utiliser la commande : « npm start » ou « npm run dev »
 
 
+## Inisialisation du projet
+Installer les dépendences
+```
+npm i express
+npm i -D @types/express @types/node
+```
+
+
 ## Structure du projet
 ```
 /node_module
@@ -58,3 +66,15 @@ package.json
 package-lock.json
 readme.md
 ```
+
+### Description 
+- route : Lien entre la requete et la méthode à déclancher
+- controller : Résponsable de traitement de la requete et la réponse
+- service : Traitement metier et acces aux données
+
+### Cheminement d'une requete
+1) App recoit la requete
+2) Utilisation des routes pour obtenir la méthode des controllers
+3) Execution du code du controller
+   - Traitement (via les services)
+   - Envoi de la réponse
