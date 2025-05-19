@@ -1,0 +1,25 @@
+{
+  "name": "demo-node-02",
+  "version": "0.1.0",
+  "description": "Web API pour Phéniks",
+  "keywords": [
+    "Phéniks",
+    "WebAPI"
+  ],
+  "license": "ISC",
+  "author": "Aurélien St",
+  "type": "module",
+  "main": "src/app.ts",
+  "scripts": {
+    "start": "tsx src/app.ts",
+    "dev": "tsx watch src/app.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.2",
+    "tsx": "^4.19.4"
+  }
+}
