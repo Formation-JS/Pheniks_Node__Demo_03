@@ -55,6 +55,7 @@ npm i -D @types/express @types/node
   /dto
     product.dto.ts
     member.dto.ts
+  /middlewares
   /routes
     index.ts
     product.route.ts
@@ -62,6 +63,9 @@ npm i -D @types/express @types/node
   /services
     product.service.ts
     member.service.ts
+  /validators
+    product.validator.ts
+    member.validator.ts
   app.ts
   config.json
 .gitignore
@@ -75,6 +79,7 @@ readme.md
 - controller : Résponsable de traitement de la requete et la réponse
 - service : Traitement metier et acces aux données
 - dto : Objet de "sortie". Permet d'apadter l'objet de la réponse et de cacher des champs
+- validator: Valider les donnée d'entrée
 
 ### Cheminement d'une requete
 1) App recoit la requete
@@ -82,5 +87,3 @@ readme.md
 3) Execution du code du controller
    - Traitement (via les services)
    - Envoi de la réponse
-
-## 

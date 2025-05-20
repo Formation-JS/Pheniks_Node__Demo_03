@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import productController from '../controllers/product.controller';
-import { bodyValidatorMiddleware } from '../middlewares/body-validator';
+import { bodyValidatorMiddleware } from '../middlewares/body-validator.middleware';
 import { productDataValidator } from '../validators/product.validator';
 
 
