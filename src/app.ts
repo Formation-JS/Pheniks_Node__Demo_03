@@ -5,6 +5,9 @@ import apiRouter from './routes';
 //! Initialisation de la WebAPI
 const app = express();
 
+//? Middleware
+app.use(express.json({ limit: '1mb' }));
+
 //! Routing
 app.use('/api', apiRouter);
 

@@ -34,7 +34,7 @@ Dans le package.json
 Et utiliser la commande : « npm start » ou « npm run dev »
 
 
-## Inisialisation du projet
+## Initialisation du projet
 Installer les dépendences
 ```
 npm i express
@@ -78,3 +78,5 @@ readme.md
 3) Execution du code du controller
    - Traitement (via les services)
    - Envoi de la réponse
+
+## 
