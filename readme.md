@@ -52,6 +52,9 @@ npm i -D @types/express @types/node
   /controllers
     product.controller.ts
     member.controller.ts
+  /dto
+    product.dto.ts
+    member.dto.ts
   /routes
     index.ts
     product.route.ts
@@ -71,6 +74,7 @@ readme.md
 - route : Lien entre la requete et la méthode à déclancher
 - controller : Résponsable de traitement de la requete et la réponse
 - service : Traitement metier et acces aux données
+- dto : Objet de "sortie". Permet d'apadter l'objet de la réponse et de cacher des champs
 
 ### Cheminement d'une requete
 1) App recoit la requete

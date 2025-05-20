@@ -1,4 +1,5 @@
 import type { Product, ProductData } from '../@types/product';
+import { ProductDetailDto, ProductListDto } from '../dto/product.dto';
 
 
 const fakeProducts: Product[] = [
@@ -18,7 +19,7 @@ const productService = {
 
   getAll: async () => {
     // Dans la démo, le but de "structuredClone" est de cassé la ref mémoire avant l'envoi
-    return structuredClone(fakeProducts);
+    return fakeProducts.map(p => new ProductListDto(p));
   },
 
   insert: async (product: ProductData) => {
@@ -30,13 +31,14 @@ const productService = {
     };
 
     fakeProducts.push(productAdded);
-    return productAdded;
+    
+    return new ProductDetailDto(productAdded);
   },
 
   getById: async (productId: number) => {
     
     const product = fakeProducts.find(p => p.id === productId);
-    return (!!product) ? structuredClone(product) : null;
+    return (!!product) ? new ProductDetailDto(product) : null;
   },
   
   update: async (productId: number, data: ProductData) => {

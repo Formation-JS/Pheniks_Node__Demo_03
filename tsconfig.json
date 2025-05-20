@@ -18,5 +18,8 @@
 
 		// Disallow features that require cross-file awareness
 		"isolatedModules": true,
+
+		// Enable Null check
+		"strictNullChecks": true
 	},
 }
