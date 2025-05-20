@@ -33,8 +33,10 @@ const productService = {
     return productAdded;
   },
 
-  getById: async () => {
-    throw new Error('Not implemented');
+  getById: async (productId: number) => {
+    
+    const product = fakeProducts.find(p => p.id === productId);
+    return (!!product) ? structuredClone(product) : null;
   },
   
   update: async () => {

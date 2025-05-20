@@ -14,6 +14,29 @@ const productController = {
     res.status(200).json(products);
   },
 
+  // (GET) /api/product/:id
+  getById: async (req: Request, res: Response) => {
+
+    // Récuperation de parametre dans la route
+    const id = parseInt(req.params.id);
+
+    // Test de garde sur la validation du parametre
+    if(isNaN(id)) {
+      res.sendStatus(400);
+      return;
+    }
+
+    // Traitement
+    const product = await productService.getById(id);
+
+    // Réponse de la requete
+    if(!product) {
+      res.sendStatus(404);
+      return;
+    }
+    res.status(200).json(product);
+  },
+
   // (POST) /api/product
   insert : async (req: Request, res: Response) => {
 
@@ -25,7 +48,7 @@ const productController = {
 
     // Réponse de la requete
     res.status(201)
-      .location('/api/product')
+      .location(`/api/product/${productAdded.id}`)
       .json(productAdded);
   }
 

@@ -9,5 +9,9 @@ productRouter.route('/')
   .post(productController.insert)
   .all((req, res) => { res.sendStatus(405); });
 
+productRouter.route('/:id')
+  .get(productController.getById)
+  .all((req, res) => { res.sendStatus(405); });
+
 
 export default productRouter;
