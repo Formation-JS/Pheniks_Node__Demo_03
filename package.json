@@ -1,10 +1,11 @@
 {
-  "name": "demo-node-02",
+  "name": "demo-node-03",
   "version": "0.1.0",
-  "description": "Web API pour Phéniks",
+  "description": "Web API pour Phéniks avec Database",
   "keywords": [
     "Phéniks",
-    "WebAPI"
+    "WebAPI",
+    "PostgreSQL"
   ],
   "license": "ISC",
   "author": "Aurélien St",

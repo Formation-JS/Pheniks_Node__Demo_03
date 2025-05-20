@@ -1,4 +1,4 @@
-# Demo 02 - WebAPI
+# Demo 03 - WebAPI avec PostgreSQL
 
 ## Utilisation de TS
 https://nodejs.org/en/learn/typescript/introduction  \
@@ -87,3 +87,7 @@ readme.md
 3) Execution du code du controller
    - Traitement (via les services)
    - Envoi de la réponse
+
+
+## Mise en place de la DB
+TODO ...
