@@ -11,6 +11,8 @@ productRouter.route('/')
 
 productRouter.route('/:id')
   .get(productController.getById)
+  .put(productController.update)
+  .delete(productController.delete)
   .all((req, res) => { res.sendStatus(405); });
 
 

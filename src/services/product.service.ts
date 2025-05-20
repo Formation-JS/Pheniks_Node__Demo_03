@@ -39,12 +39,20 @@ const productService = {
     return (!!product) ? structuredClone(product) : null;
   },
   
-  update: async () => {
+  update: async (productId: number, data: ProductData) => {
     throw new Error('Not implemented');
   },
   
-  delete: async () => {
-    throw new Error('Not implemented');
+  delete: async (productId: number) => {
+    
+    const targetIndex = fakeProducts.findIndex(p => p.id === productId);
+
+    if(targetIndex >= 0) {
+      fakeProducts.splice(targetIndex, 1);
+      return true;
+    }
+
+    return false;
   },
 
 };

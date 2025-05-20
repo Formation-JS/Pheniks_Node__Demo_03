@@ -50,6 +50,30 @@ const productController = {
     res.status(201)
       .location(`/api/product/${productAdded.id}`)
       .json(productAdded);
+  },
+
+  // (PUT) /api/product/:id
+  update: async (req: Request, res: Response) => {
+    
+    // Route non implémenté
+    res.sendStatus(501);
+  },
+
+  // (DELETE) /api/product/:id
+  delete: async (req: Request, res: Response) => {
+
+    // Récuperation du parametre id
+    const id = parseInt(req.params.id);
+
+    // Traitement
+    const isDeleted = await productService.delete(id);
+
+    // Reponse de la requete
+    if(!isDeleted) {
+      res.sendStatus(404);
+      return;
+    }
+    res.sendStatus(204);
   }
 
 };
