@@ -1,12 +1,14 @@
 import { Router } from 'express'
 import productController from '../controllers/product.controller';
+import { bodyValidatorMiddleware } from '../middlewares/body-validator';
+import { productDataValidator } from '../validators/product.validator';
 
 
 const productRouter = Router();
 
 productRouter.route('/')
   .get(productController.getAll)
-  .post(productController.insert)
+  .post(bodyValidatorMiddleware(productDataValidator), productController.insert)
   .all((req, res) => { res.sendStatus(405); });
 
 productRouter.route('/:id')
