@@ -129,3 +129,16 @@ Créer une classe avec le décorateur @Entity, celle ci peut contenir :
   - L'ajout de contrainte unique avec @Unique 
 
 [Lien vers la documentation](https://typeorm.io)
+
+## Testing
+
+Type de test : 
+- Unitaire
+- Intégration
+- Performance 
+
+Installation du package "jest"
+```
+npm i -D jest @types/jest
+npm init jest
+```

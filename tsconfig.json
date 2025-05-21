@@ -27,4 +27,9 @@
 		"experimentalDecorators": true,
 		
 	},
+	
+	"exclude": [
+		"node_modules",
+		"jest.config.js"
+	]
 }
