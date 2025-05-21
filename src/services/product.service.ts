@@ -1,5 +1,4 @@
-import { object } from 'zod/v4';
-import type { Product, ProductData } from '../@types/product';
+import type { ProductData } from '../@types/product';
 import { db } from '../db';
 import { ProductDetailDto, ProductListDto } from '../dto/product.dto';
 import ProductModel from '../models/product.model';
