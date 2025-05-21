@@ -55,8 +55,17 @@ const productController = {
   // (PUT) /api/product/:id
   update: async (req: Request, res: Response) => {
     
-    // Route non implémenté
-    res.sendStatus(501);
+    // Récuperation du parametre id
+    const id = parseInt(req.params.id);
+
+    // Récuperation des données JSON
+    const data = req.data as ProductData;
+
+    // Traitement
+    const isUpdated = await productService.update(id, data);
+
+    // Reponse 
+    res.sendStatus(isUpdated ? 204 : 400);
   },
 
   // (DELETE) /api/product/:id
