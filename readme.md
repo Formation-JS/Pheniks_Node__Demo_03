@@ -90,4 +90,37 @@ readme.md
 
 
 ## Mise en place de la DB
-TODO ...
+
+### Solution possible (Adapté à PostgreSQL)
+- Package natif \
+  [Repo](https://github.com/brianc/node-postgres)  \
+  [Documentation](https://node-postgres.com/)  \
+- ORM
+  - Sequelize _(Projet JS)_
+  - TypeORM _(Projet TS)_
+  - Prisma _(Projet TS)_
+
+### Installation de « TypeORM »
+
+- Installation des packages
+```
+npm i typeorm reflect-metadata pg
+npm i -D @types/node
+```
+
+- Configuration dans le "tsconfig.json"
+```
+"emitDecoratorMetadata": true,
+"experimentalDecorators": true,
+```
+
+- Dans le fichier "app.ts" ajouter :
+```
+import "reflect-metadata";
+```
+
+### Mise en place d'un modele en TypeORM
+Class avec le décorateur @Entity, celle ci peut contenir : 
+ - Un identifier avec @PrimaryGeneratedColumn ou @PrimaryColumn
+ - Une colonne avec @Column
+ - ...

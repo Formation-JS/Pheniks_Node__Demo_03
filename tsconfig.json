@@ -20,6 +20,11 @@
 		"isolatedModules": true,
 
 		// Enable Null check
-		"strictNullChecks": true
+		"strictNullChecks": true,
+
+		// TypeORM
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		
 	},
 }

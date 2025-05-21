@@ -1,5 +1,9 @@
+import "reflect-metadata";
+import { NODE_ENV, PORT } from './config.json';
+
 import express, { NextFunction, Request, Response } from 'express';
 import apiRouter from './routes';
+import { db } from './db';
 
 
 //! Initialisation de la WebAPI
@@ -25,11 +29,26 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use(express.json({ limit: '1mb' }));
 
 
+//! Utilisation de la DB
+db.initialize()
+  .then(() => {
+    console.log('Database connection : OK');
+
+    if(NODE_ENV === 'dev') {
+      db.synchronize();
+    }
+  })
+  .catch((error) => {
+    console.log('Database connection : On error !');
+    console.error(error);
+  });
+  
 
 //! Routing
 app.use('/api', apiRouter);
 
+
 //! Demarrage de la WebAPI
-app.listen(8080, () => {
-  console.log(`Web API is running on port ${8080}`);
+app.listen(PORT, () => {
+  console.log(`Web API is running on port ${PORT} [${NODE_ENV}]`);
 });
