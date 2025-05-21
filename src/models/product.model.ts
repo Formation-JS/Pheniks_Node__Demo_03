@@ -1,7 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity()
-export default class Product {
+@Entity({ name: 'product' })
+export default class ProductModel {
 
   @PrimaryGeneratedColumn('identity')
   id: number;
@@ -18,7 +18,11 @@ export default class Product {
   @Column({ type: 'bool', default: false })
   inStock: boolean;
 
-  @Column({ type : 'timestamp' })
+  // @Column({ type : 'timestamp', default: 'NOW()' })
+  @CreateDateColumn({ type: 'timestamp with time zone' })
   createAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamp with time zone' })
+  updateAt: Date;
 
 };
