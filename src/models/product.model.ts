@@ -1,12 +1,13 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'product' })
 export default class ProductModel {
 
-  @PrimaryGeneratedColumn('identity')
+  @PrimaryGeneratedColumn('identity', { primaryKeyConstraintName: 'PK_Product' })
   id: number;
 
   @Column('varchar', { length: 50 })
+  @Unique('UK_Product__Name', ['name'])
   name: string;
 
   @Column({ type: 'varchar', length: 500, nullable: true })
