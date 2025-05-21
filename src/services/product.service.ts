@@ -1,60 +1,109 @@
+import { object } from 'zod/v4';
 import type { Product, ProductData } from '../@types/product';
+import { db } from '../db';
 import { ProductDetailDto, ProductListDto } from '../dto/product.dto';
-
-
-const fakeProducts: Product[] = [
-  { 
-    id: 1,
-    name: 'Exemple',
-    desc: 'Ceci est un exemple',
-    inStock: true,
-    price: 42,
-    createAt : new Date(2025, 4, 19, 16, 30, 0)
-  }
-];
-let nextProductId = 2;
+import ProductModel from '../models/product.model';
 
 
 const productService = {
 
   getAll: async () => {
-    // Dans la démo, le but de "structuredClone" est de cassé la ref mémoire avant l'envoi
-    return fakeProducts.map(p => new ProductListDto(p));
+    //Exemple de requete avec la méthode "find"
+    const result = await db.getRepository(ProductModel)
+      .find({
+        select: { id: true, name: true, price: true },
+        order: { id: 'ASC' },
+      });
+
+    // Exemple de requete de Query Builder
+    /*
+    const builder = db.getRepository(ProductModel)
+      .createQueryBuilder()
+      .select(['id', 'name'])
+      .addSelect('price')
+      .orderBy('id', 'ASC');
+    const result = await builder.getMany();
+    */
+
+    return result.map(p => new ProductListDto(p));
   },
 
   insert: async (product: ProductData) => {
+    const productRepo = db.getRepository(ProductModel);
 
-    const productAdded: Product = {
-      ...product,
-      id: nextProductId++,
-      createAt: new Date()
-    };
+    // Création d'un élément "DB" et sauvegarde
+    const productDb = productRepo.create(product);
+    await productRepo.save(productDb);
+    console.log(productDb);
 
-    fakeProducts.push(productAdded);
-    
-    return new ProductDetailDto(productAdded);
+    // Requete INSERT dans la DB et resultat de celle-ci
+    /*
+    const inner = await productRepo.insert(product);
+    console.log(inner);
+    */
+
+    return new ProductDetailDto(productDb);
   },
 
   getById: async (productId: number) => {
-    
-    const product = fakeProducts.find(p => p.id === productId);
-    return (!!product) ? new ProductDetailDto(product) : null;
-  },
-  
-  update: async (productId: number, data: ProductData) => {
-    throw new Error('Not implemented');
-  },
-  
-  delete: async (productId: number) => {
-    
-    const targetIndex = fakeProducts.findIndex(p => p.id === productId);
+    const productRepo = db.getRepository(ProductModel);
 
-    if(targetIndex >= 0) {
-      fakeProducts.splice(targetIndex, 1);
+    const result = await productRepo.findOneBy({ id: productId });
+    return (!!result) ? new ProductDetailDto(result) : null;
+  },
+
+  update: async (productId: number, data: ProductData) => {
+    const productRepo = db.getRepository(ProductModel);
+
+    // Récuperation d'un élément "DB", map les champs (manuel) et sauvegarde
+    // → Detection des champs modifier (Pour optimisation)
+
+    const productDb = await productRepo.findOneByOrFail({ id: productId });
+    //? Affection champs par champs (a la mano)
+    productDb.name = data.name;
+    productDb.desc = data.desc;
+    productDb.inStock = data.inStock;
+    productDb.price = data.price;
+
+    //? Affection à travers une boucle "for in"
+    /*
+    for(const key in data) {
+      productDb[key] = data[key];
+    }
+    */
+
+    //? Affection via la méthode "Object.assign" (Bypass optimisation)
+    /*
+    Object.assign(productDb, data);
+    */
+
+    await productRepo.save(productDb);
+
+
+    // Requete UPDATE dans la DB et resultat de celle-ci
+    /*
+    const inner = await productRepo.update(productId, data);
+    console.log(inner);
+    */
+
+    return true;
+  },
+
+  delete: async (productId: number) => {
+    const productRepo = db.getRepository(ProductModel);
+
+    await productRepo.query('BEGIN');
+
+    const result = await productRepo.delete(productId);
+
+    if(result.affected === 1) {
+      await productRepo.query('COMMIT');
       return true;
     }
-
-    return false;
+    else {
+      await productRepo.query('ROLLBACK');
+      return false;
+    }
   },
 
 };
