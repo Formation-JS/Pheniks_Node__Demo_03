@@ -120,7 +120,12 @@ import "reflect-metadata";
 ```
 
 ### Mise en place d'un modele en TypeORM
-Class avec le décorateur @Entity, celle ci peut contenir : 
+Créer une classe avec le décorateur @Entity, celle ci peut contenir : 
  - Un identifier avec @PrimaryGeneratedColumn ou @PrimaryColumn
  - Une colonne avec @Column
- - ...
+ - Des relations entre les tables avec :
+    - @ManyToOne et @OneToMany
+    - @ManyToMany et @JoinTable
+  - L'ajout de contrainte unique avec @Unique 
+
+[Lien vers la documentation](https://typeorm.io)

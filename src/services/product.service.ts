@@ -3,6 +3,7 @@ import type { Product, ProductData } from '../@types/product';
 import { db } from '../db';
 import { ProductDetailDto, ProductListDto } from '../dto/product.dto';
 import ProductModel from '../models/product.model';
+import ProductCategoryModel from '../models/product-category.model';
 
 
 const productService = {
@@ -30,9 +31,20 @@ const productService = {
 
   insert: async (product: ProductData) => {
     const productRepo = db.getRepository(ProductModel);
+    const categoryRepo = db.getRepository(ProductCategoryModel);
+
+    // Exemple d'interaction avec la relation
+    let category = await categoryRepo.findOne({ 
+      where: { name : 'Phéniks' }
+    });
+    if(!category) {
+      category = await categoryRepo.create({ name: 'Phéniks' });
+      await categoryRepo.save(category);
+    }
 
     // Création d'un élément "DB" et sauvegarde
     const productDb = productRepo.create(product);
+    productDb.category = category;
     await productRepo.save(productDb);
     console.log(productDb);
 
@@ -48,7 +60,13 @@ const productService = {
   getById: async (productId: number) => {
     const productRepo = db.getRepository(ProductModel);
 
-    const result = await productRepo.findOneBy({ id: productId });
+    const result = await productRepo.findOne({ 
+      select: { category: { name: true }},
+      where: { id: productId },
+      relations: { category: true }
+     });
+    console.log(result);
+
     return (!!result) ? new ProductDetailDto(result) : null;
   },
 

@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
+import ProductCategoryModel from './product-category.model';
 
 @Entity({ name: 'product' })
 export default class ProductModel {
@@ -25,5 +26,8 @@ export default class ProductModel {
 
   @UpdateDateColumn({ type: 'timestamp with time zone' })
   updateAt: Date;
+
+  @ManyToOne(() => ProductCategoryModel, c => c.products)
+  category: ProductCategoryModel;
 
 };
