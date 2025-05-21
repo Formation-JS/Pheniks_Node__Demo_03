@@ -41,7 +41,7 @@ const productController = {
   insert : async (req: Request, res: Response) => {
 
     // Récuperation des données JSON
-    const data = req.body as ProductData;
+    const data = req.data as ProductData;
     
     // Traitement
     const productAdded = await productService.insert(data);
