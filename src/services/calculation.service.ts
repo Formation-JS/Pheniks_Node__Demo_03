@@ -1,3 +1,5 @@
+import { roundNumber } from '../utils/number.utils';
+
 export type TVA = 'NORMAL' | 'MIX' | 'FOOD';
 // 21, 12, 6
 
@@ -17,7 +19,7 @@ const calculationService = {
 
     const priceWithTva = price + (price * (taux / 100));
 
-    return priceWithTva;
+    return roundNumber(priceWithTva);
   }
 
 };
