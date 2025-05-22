@@ -45,12 +45,10 @@ const productService = {
     const productDb = productRepo.create(product);
     productDb.category = category;
     await productRepo.save(productDb);
-    console.log(productDb);
 
     // Requete INSERT dans la DB et resultat de celle-ci
     /*
     const inner = await productRepo.insert(product);
-    console.log(inner);
     */
 
     return new ProductDetailDto(productDb);
@@ -64,7 +62,6 @@ const productService = {
       where: { id: productId },
       relations: { category: true }
      });
-    console.log(result);
 
     return (!!result) ? new ProductDetailDto(result) : null;
   },
@@ -100,7 +97,6 @@ const productService = {
     // Requete UPDATE dans la DB et resultat de celle-ci
     /*
     const inner = await productRepo.update(productId, data);
-    console.log(inner);
     */
 
     return true;
